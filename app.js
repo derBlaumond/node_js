@@ -11,13 +11,16 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const adminRoutes = require('./routes/admin');
+app.set('view engine', 'pug'); // view engine을 pug로 설정함.
+app.set('view', 'views'); // view의 default directory를 views로 설정함.
+
+const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 app.use(bodyParser.urlencoded({extended: false})); // body-parser를 사용함.
 app.use(express.static(path.join(__dirname, 'public'))); // static file을 사용함. (css, js, image 등)
 
-app.use('/admin', adminRoutes); // adminRoutes를 사용함.
+app.use('/admin', adminData.routes); // adminRoutes를 사용함.
 app.use(shopRoutes); // adminRoutes를 사용함.
 
 
